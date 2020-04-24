@@ -16,15 +16,15 @@ class CategoryItemsRepositoryTest {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @Test
-    public void createItems() {
-        Category category = (Category) categoryRepository.findById(1L).get();
-        CategoryItemDTO itemDTO = CategoryItemDTO.builder()
-                .itemName("외식")
-                .category(category)
-                .build();
-
-        itemsRepository.save(itemDTO.toEntity());
-    }
+//    @Test
+//    public void createItems() {
+//        Category category = (Category) categoryRepository.findById(1L).get();
+//        CategoryItemDTO itemDTO = CategoryItemDTO.builder()
+//                .itemName("외식")
+//                .category(category)
+//                .build();
+//
+//        itemsRepository.save(itemDTO.toEntity());
+//    }
 
 }

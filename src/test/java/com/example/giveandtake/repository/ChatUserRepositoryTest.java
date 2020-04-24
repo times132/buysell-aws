@@ -9,8 +9,8 @@ public class ChatUserRepositoryTest {
     @Autowired
     private ChatUsersRepository chatUserRepository;
 
-    @Test
-    public void deleteChatUser(){
-        chatUserRepository.deleteById(10L);
-    }
+//    @Test
+//    public void deleteChatUser(){
+//        chatUserRepository.deleteById(10L);
+//    }
 }
