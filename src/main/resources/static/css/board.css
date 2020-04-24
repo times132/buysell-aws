@@ -1,0 +1,303 @@
+/* 게시글 조회 */
+.boardBody{
+    width: 90%;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.title, .titleSold{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 0;
+}
+.title a{
+    color: #000000;
+}
+.titleSold a{
+    color: #b8bfce;
+}
+.soldReplyCnt{
+    color: #b8bfce;
+}
+.sold{
+    border: 0.01rem solid #8f96a5;
+    padding: 0.1rem 0.2rem;
+    color: #8f96a5;
+    font-size: 0.1rem;
+    font-weight: bold;
+}
+.writeBtn{
+    border: #d5d0d0 1px solid;
+    padding: 4px;
+    color: black;
+    float: right;
+    border-radius: 2px 2px 2px 2px;
+}
+.listFooter{
+    clear: both;
+}
+.pagination {
+    text-align: center;
+    margin-top: 1rem;
+}
+.pagination li.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+.pagination li a {
+    color: black!important;
+    float: left;
+    padding: 8px 16px;
+    transition: background-color .3s;
+    text-decoration: inherit;
+}
+.pagination li a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.carousel{
+    width:480px;
+    height :480px;
+    margin-right: 1rem;
+    display: flex;
+    background: black;
+}
+.carousel-inner{
+    display: flex;
+    align-items: center;
+}
+.d-block{
+    margin: 0 auto;
+    overflow: hidden;
+}
+.carousel-item.active{
+    overflow: hidden;
+}
+.productInfo{
+    margin-right: 1rem;
+}
+.productInfo *{
+    padding-bottom: 10px;
+}
+.productInfo .createdDate{
+    float: right;
+}
+.productInfo .price{
+    text-align: right;
+}
+.writerDropdown{
+    -ms-flex: 1 1 auto;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+.panelGroup{
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 15rem;
+    position: relative;
+}
+@media (max-width: 768px) {
+    .writerDropdown{
+        text-align: right;
+        position: relative;
+    }
+    .panelGroup{
+        flex-basis: 0;
+        flex-grow: 1;
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        max-width: unset;
+    }
+}
+.writer{
+    color: black!important;
+}
+.dropdown-menu {
+    min-width: auto!important;
+}
+.dropdown-toggle::after{
+    display: none!important;
+}
+.profile img{
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    padding-bottom: 0;
+}
+.replyProfile{
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    margin-right: .5rem;
+}
+.card-header{
+    display: flex;
+}
+.like{
+    display: flex;
+}
+#likeimg, #addLike, #deleteLike {
+    width: 20px;
+    height: 20px;
+}
+.likebtn{
+    display: flex;
+    align-items: center;
+    border: 0.01rem solid #c2c9d8;
+    padding: 0 .5rem;
+}
+.likebtn img:hover{
+    cursor: pointer;
+}
+.card-body{
+    border-top: 1px solid lightgray;
+}
+.btnlist{
+    text-align: right;
+}
+.mutedInfo{
+    margin-top: 0.5rem;
+}
+.reply-add, .reply-modify{
+    display: flex;
+}
+.reply-body{
+    padding: 1rem 0;
+    background-color: whitesmoke;
+}
+.replyList{
+    list-style: none;
+}
+.replyList li{
+    border-width: thick;
+    border-bottom: 1px outset;
+    margin-top: .5rem;
+}
+#addReplyBtn, #modifyconfirm{
+    margin-left: 0.5rem;
+    width: 7rem;
+}
+.reply-header{
+    display: inline-block;
+}
+.reply-header-btn{
+    display: inline-block;
+    float: right;
+}
+.reply-footer{
+    text-align: center;
+}
+
+.imageWrapper{
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    z-index: 100;
+    background: rgba(255,255,255,0.5);
+}
+.originPicture{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.originPicture img{
+    width: 600px;
+}
+
+/* 게시글 작성, 수정 */
+.btn-submit:hover,
+.btn-submit:active,
+.btn-submit:focus,
+.btn-submit.active {
+    background: #60b5e2!important;
+    border-color: #60b5e2!important;
+}
+
+.file-head{
+    margin: .75rem 0;
+}
+.input-price-text{
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid #ced4da;
+    background-color: whitesmoke;
+    border-radius: .25rem;
+}
+.image-frame{
+    border: 1px solid black;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+.input-image{
+     visibility: hidden;
+     width: 0;
+     height: 0;
+ }
+.uploadimg{
+    width: 1.6rem;
+    height: 1.6rem;
+    cursor: pointer;
+}
+.uploadDiv{
+    float: right;
+}
+.uploadResult{
+    width: 100%;
+    background-color: gray;
+}
+.uploadResult ul{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: 0 1rem;
+
+}
+.uploadResult ul li{
+    list-style: none;
+    height: 7rem;
+    width: 5rem;
+    margin: .5rem .2rem;
+    position: relative;
+}
+.uploadResult ul li img{
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+.del-image{
+    background: url( "/resources/image/close.png" ) no-repeat;
+    border: none;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    position: absolute;
+    left: 100%;
+    top: 0%;
+    transform: translate(-100%, 0%);
+}
+
