@@ -31,7 +31,7 @@ public class KakaoDTO implements OAuth2User {
         }
         attributes.put("id", "KA_" + this.id);
         attributes.put("name", properties.get("nickname"));
-
+        System.out.println("이름은 " + properties.get("nickname"));
         return attributes;
     }
 
