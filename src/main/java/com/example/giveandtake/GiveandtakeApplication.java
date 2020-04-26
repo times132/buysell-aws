@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @EnableCaching
 public class GiveandtakeApplication extends SpringBootServletInitializer {
-	
+
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
 		return application.sources(GiveandtakeApplication.class);
