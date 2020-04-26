@@ -13,7 +13,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @EnableCaching
 public class BuySellApplication{
-	
 
 	public static void main(String[] args) {
 
