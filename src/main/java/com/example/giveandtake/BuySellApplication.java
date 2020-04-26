@@ -12,16 +12,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EntityScan
 @EnableJpaAuditing
 @EnableCaching
-public class GiveandtakeApplication extends SpringBootServletInitializer {
+public class BuySellApplication extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
-		return application.sources(GiveandtakeApplication.class);
+		return application.sources(BuySellApplication.class);
 	}
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(GiveandtakeApplication.class, args);
+		SpringApplication.run(BuySellApplication.class, args);
 	}
 
 }
