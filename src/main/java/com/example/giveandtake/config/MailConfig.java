@@ -1,5 +1,6 @@
 package com.example.giveandtake.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,14 +10,19 @@ import java.util.Properties;
 
 @Configuration public class MailConfig
 {
+    @Value("${spring.mail.id}")
+    private static String emailid;
+    @Value("${spring.mail.password}")
+    private static String emailpassword;
+
 
     @Bean
     public static JavaMailSender mailSender(){
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(465);
-        mailSender.setUsername("yoo4380");
-        mailSender.setPassword("sa2015250034");
+        mailSender.setUsername(emailid);
+        mailSender.setPassword(emailpassword);
         mailSender.setDefaultEncoding("utf-8");
         Properties prop = new Properties();
 
