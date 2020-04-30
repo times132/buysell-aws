@@ -97,7 +97,7 @@
                 return;
             }
             for (var i = 0, len = data.length || 0; i < len; i++) {
-                console.log(data[i])
+
                 str += "<div class='chat' ><ul class= 'a'>"
                 str += "<li class='chat-li'  data-rid='" + data[i].roomId + "'>";
                 str += "<div class='chat-people' id='enterBtn' >"
@@ -179,7 +179,7 @@
             }
             chatService.findAllMessages(roomId, function (data) {
                 init();
-                console.log(data);
+
                 $('.messages').show();
                 var str = "";
                 if (data == null || data.length == 0) {
@@ -305,7 +305,7 @@
             , function (error) {
                 if (reconnect++ <= 5) {
                     setTimeout(function () {
-                        console.log("connection reconnect");
+
                         sock = new SockJS("/ws-stomp");
                         ws = Stomp.over(sock);
                         connect();

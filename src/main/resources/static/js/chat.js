@@ -1,9 +1,7 @@
-console.log("chat module****************************");
-
 var chatService = (function () {
 
     function findAllRoom(callback, error) {
-        console.log("GET CHAT FIND ALL ROOM");
+
         $.getJSON("/chat/rooms", function (data) {
             if (callback){
 
@@ -18,8 +16,6 @@ var chatService = (function () {
     }
 
     function createRoom(nickname, callback, error) {
-        console.log("CREATE CHAT ROOM");
-        console.log(nickname);
         $.ajax({
             type: "post",
             url: "/chat/room",
@@ -42,7 +38,6 @@ var chatService = (function () {
 
 
     function get(roomId, callback, error) {
-        console.log("GET"+roomId)
         $.ajax({
             type: "get",
             url: "/chat/room/" + roomId,
@@ -74,8 +69,6 @@ var chatService = (function () {
 
 
     function findAllMessages(roomId, callback, error) {
-        console.log("GET ALL MESSEGES");
-
         $.ajax({
             type: "get",
             url: "/chat/messages/"+roomId,
