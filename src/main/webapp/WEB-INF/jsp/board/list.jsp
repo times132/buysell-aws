@@ -3,25 +3,23 @@
 <%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시판</title>
+
+    <link rel="stylesheet" href="/resources/css/board.css">
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
-    <link href="/resources/css/board.css" rel="stylesheet">
     
     <script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.3.1/dist/js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="/resources/js/common.js"></script>
-    <style>
-
-    </style>
 </head>
 <body>
-    <%@include file="../include/header.jsp"%>
-    <div class="boardBody">
+    <%@include file="../include/navbar.jsp"%>
+
+    <div class="board-body">
         <div class="row">
-            <div class="panelGroup">
+            <div class="panel-group">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Panel Title</h3>
@@ -64,11 +62,11 @@
                             </td>
 
                             <c:if test="${board.sellCheck eq true}">
-                                <td class="titleSold">
+                                <td class="title-sold">
                                     <a class="move" href='<c:out value="${board.bid}"/>'>
                                         <c:out value="${board.title}"/>
                                     </a>
-                                    <span class="soldReplyCnt">
+                                    <span class="sold-reply-cnt">
                                         [<c:out value="${board.replyCnt}"/>]
                                     </span>
                                     <span class="sold">
@@ -81,7 +79,7 @@
                                     <a class="move" href='<c:out value="${board.bid}"/>'>
                                         <c:out value="${board.title}"/>
                                     </a>
-                                    <span class="replyCnt">
+                                    <span class="reply-cnt">
                                         [<c:out value="${board.replyCnt}"/>]
                                     </span>
                                 </td>
@@ -99,11 +97,11 @@
                                 <javatime:format pattern="yy.MM.dd" value="${board.createdDate}"/>
                             </td>
 
-                            <td class="viewCnt">
+                            <td class="view-cnt">
                                 <c:out value="${board.viewCnt}"/>
                             </td>
 
-                            <td class="likeCnt">
+                            <td class="like-cnt">
                                 <c:out value="${board.likeCnt}"/>
                             </td>
                         </tr>
@@ -112,10 +110,10 @@
                 </table>
 
                 <sec:authorize access="isAuthenticated()">
-                    <a class="writeBtn" href="/board/write"><img src="/resources/image/pencil.png"/> 글쓰기</a>
+                    <a class="write-btn" href="/board/write"><img src="/resources/image/pencil.png"/> 글쓰기</a>
                 </sec:authorize>
 
-                <div class="listFooter">
+                <div class="list-footer">
                     <%-- 페이징 --%>
                     <ul class="pagination pagination-sm justify-content-center">
                         <c:if test="${pageMaker.prev}">
@@ -143,8 +141,8 @@
                                     <option value="W"<c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : ''}"/>>작성자</option>
                                 </select>
                             </div>
-                            <input hidden="hidden" /> <%--엔터키 방지--%>
-                            <input name="keyword" type="text" class="form-control" placeholder="검색어를 입력해주세요" value="<c:out value="${pageMaker.cri.keyword}"/>" aria-label="Recipient's username" aria-describedby="button-addon2">
+
+                            <input name="keyword" type="text" class="form-control" placeholder="검색어를 입력해주세요" value="<c:out value="${pageMaker.cri.keyword}"/>">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
                             </div>
@@ -166,6 +164,7 @@
     </div>
 
     <!-- js & jquery -->
+    <script type="text/javascript" src="/resources/js/common.js"></script>
     <script>
         $(document).ready(function () {
             var actionForm = $("#actionForm");
@@ -186,21 +185,31 @@
                 actionForm.submit();
             });
 
-            var searchForm = $("#searchForm");
+
             $("#searchForm button").on("click", function (e) {
-                if (!searchForm.find("option:selected").val()){
-                    alert("검색종류를 선택하세요.");
-                    return false;
-                }
-                if (!searchForm.find("input[name='keyword']").val()){
-                    alert("키워드를 입력하세요.");
-                    return false;
-                }
-                searchForm.find("input[name='page']").val("1");
-                e.preventDefault();
-                searchForm.submit();
+                return searchCheck();
             });
+
+            $("input[name='keyword']").keydown(function (key) {
+                if(key.keyCode == 13){
+                    return searchCheck();
+                }
+            })
         });
+
+        function searchCheck() {
+            var searchForm = $("#searchForm");
+            if (!searchForm.find("option:selected").val()){
+                alert("검색종류를 선택하세요.");
+                return false;
+            }
+            if (!searchForm.find("input[name='keyword']").val()){
+                alert("키워드를 입력하세요.");
+                return false;
+            }
+            searchForm.find("input[name='page']").val("1");
+            searchForm.submit();
+        }
     </script>
 </body>
 </html>

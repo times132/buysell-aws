@@ -4,23 +4,21 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Chatting room</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
     <link href="/resources/css/chat.css" rel="stylesheet">
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
 
     <script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/dist/js/bootstrap.bundle.js"></script>
     <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/dist/js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="/resources/js/chat.js"></script>
-
 </head>
 <body>
 <sec:authentication property="principal.user" var="userinfo"/>
 
-<%@include file="../include/header.jsp"%>
+<%@include file="../include/navbar.jsp"%>
 <BR>
 <div class="container">
     <div class="chatting">
@@ -49,8 +47,8 @@
             <div class="messages">
                 <div class="row msgHeader">
                     <div class='col-md-12'>
-                    <button id='deleteBtn' class='btn float-right'><img class='btn-img' src='/resources/image/delete.png'></button>
-                    <button class='btn float-right' onClick="self.location='/chat/room';"><img class='btn-img' src='/resources/image/enter.png'></button>
+                        <button id='deleteBtn' class='btn float-right'><img class='btn-img' src='/resources/image/delete.png'></button>
+                        <button class='btn float-right' onClick="self.location='/chat/room';"><img class='btn-img' src='/resources/image/enter.png'></button>n
                     </div>
                 </div>
 
@@ -69,6 +67,7 @@
             </div>
         </div>
     </div>
+<script type="text/javascript" src="/resources/js/chat.js"></script>
 <script>
     init();
     $('.messages').hide();
@@ -87,14 +86,16 @@
             }
             for (var i = 0, len = data.length || 0; i < len; i++) {
                 console.log(data[i])
-                str += "<div class='chat'><ul>"
-                str += "<li class='chat-li' data-rid='" + data[i].roomId + "'>";
-                str += "<div class='chat-people'>"
-                str += "<div id='enterBtn' class='chat-img'> "
+                str += "<div class='chat' ><ul class= 'a'>"
+                str += "<li class='chat-li'  data-rid='" + data[i].roomId + "'>";
+                str += "<div class='chat-people' id='enterBtn' >"
+                str += "<div class='chat-img'> "
                 if(data[i].users.length == 1){
                     str += "<img src='/resources/image/profile.png'>" + "</div>";
                 }
-                else{for (var a = 0, length = data[i].users.length || 0; a < length; a++) {
+                else{
+                    for (var a = 0, length = data[i].users.length || 0; a < length; a++) {
+
                     if (sender != data[i].users[a].user.nickname) {
                             str += "<img src='/display?fileName=" + data[i].users[a].user.id
                             +"/profile/s_" + data[i].users[a].user.profileImage
@@ -103,12 +104,12 @@
                         str += "<div class='chat-ib'>"
                         str += (data[i].users[a].msgCount === 0 ? "<h5 id='enterBtn'>" + data[i].users[a].user.nickname+"</h5>"
                             :"<h5 id='enterBtn'>" + data[i].users[a].user.nickname+ "<span>"+"&nbsp"+ data[i].users[a].msgCount +"&nbsp"+"</span></h5>");
-                    }
-                }}
-
-                str += "<p>" + data[i].recentMsg+ "</p>";
-                str += "<div class='chat-date'>"+ chatService.displayTime(data[i].msgDate)+"</div></div>"
-                str += "</div></li></ul></div>";
+                        }
+                    }}
+                    str += (data[i].recentMsg.startsWith( '{"bid":' ) && data[i].recentMsg.endsWith( '}' ) ?
+                        '<p>관심있는 상품을 보냈습니다.</p>' :"<p>" + data[i].recentMsg+ "</p>" );
+                    str += "<div class='chat-date'>"+ chatService.displayTime(data[i].msgDate)+"</div></div>"
+                    str += "</div></li></ul></div>";
             }
             chatUL.html(str);
         });
@@ -166,21 +167,40 @@
             }
             chatService.findAllMessages(roomId, function (data) {
                 init();
+                console.log(data);
                 $('.messages').show();
                 var str = "";
-                var str2 = "";
                 if (data == null || data.length == 0) {
                     return;
 
                 }
 
                 for (var i = 0, len = data.length || 0; i < len; i++) {
-                   if(senderId == data[i].senderId) {
+
+                    if (data[i].type == "BOARD"){  //게시판내용인 경우
+                        const board = JSON.parse(data[i].message);
+                        str+=(senderId === data[i].senderId ?
+                            "<div class='outgoing-msg'><div class = 'sent-msg'>" :
+                            "<div class='incoming-msg'><div class='received-with-msg'>");
+                        str +=
+                            "<div class='mb-3 card'>"+
+                            "<div class='card-header'><h5 class='mb-0'>"+board.title+"</h5>"+
+                            "<span class='float-right'>"+ board.createdDate.date.year +"."+  board.createdDate.date.month +"."+ board.createdDate.date.day +"</span></div>" +
+                            "<div class='card-body'>"+
+                            "<strong  class='float-right'>" + ""+ board.price + "원" + "</strong></span>"+
+                            "<h6 class='card-text'>"+board.content + "..." +"</h6>"+
+                            "<a  href='/board/read?bid="+ board.bid +"' id='showDetail' class='btn btn-primary float-right'>상세정보보기 >></a>"+
+                            "</div>"+
+                            "</div></div></div>";
+
+                    }
+
+                    else if(senderId == data[i].senderId) {
                        str += "<div class='outgoing-msg'>\n" +
                        "<div class='sent-msg'>\n" +
                        "<strong id='sender' class='primary-font'>" + data[i].sender + "</strong>" +
-                       "<p>" + data[i].message + "</p>\n" +
-                       "<span class='chat-date'>" + chatService.displayTime(data[i].createdDate) + "   " + "</span></h5>" +
+                        "<p>" + data[i].message + "</p>\n" +
+                       "<span class='chat-date'>" + chatService.displayTime(data[i].createdDate)+ "</span></h5>" +
                        "</div></div>"
                    }
                    else{
