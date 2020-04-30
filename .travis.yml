@@ -35,7 +35,8 @@ deploy:
     bucket: buysell-s3
     key: buysell-aws.zip
     bundle_type: zip
-    application: BuySell-group
+    application: BuySell
+    deployment_group: BuySell-group
     region: ap-northeast-2
     wait-until-deployed: true
 
