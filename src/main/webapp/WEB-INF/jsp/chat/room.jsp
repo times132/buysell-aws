@@ -14,6 +14,18 @@
     <script src="/webjars/bootstrap/4.3.1/dist/js/bootstrap.bundle.js"></script>
     <script src="/webjars/sockjs-client/1.1.2/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/2.3.3-1/stomp.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var token =  '${_csrf.token}';
+            var header = '${_csrf.headerName}';
+
+            $.ajaxSetup({
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <sec:authentication property="principal.user" var="userinfo"/>
